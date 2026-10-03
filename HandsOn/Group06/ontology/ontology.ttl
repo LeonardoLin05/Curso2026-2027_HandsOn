@@ -1,9 +1,10 @@
 @prefix : <https://w3id.org/madrid-culture/ontology/> .
+@prefix res: <https://w3id.org/madrid-culture/resource/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix schema: <http://schema.org/> .
-@prefix dcterms:<http://purl.org/dc/terms/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
 
 #################################################################
 # Ontology Metadata
@@ -41,9 +42,6 @@
 
 :Neighborhood a owl:Class ;
     rdfs:label "Barrio"@es, "Neighborhood"@en .
-
-:Transport a owl:Class ;
-    rdfs:label "Transporte"@es, "Transport"@en .
 
 #################################################################
 #    Object Properties
@@ -90,22 +88,10 @@
     rdfs:range xsd:string ;
     rdfs:label "Tipo"@es, "Type"@en .
 
-#################### Data type for Transport ####################
-
-:metro a owl:DatatypeProperty ;
-    rdfs:domain :Transport ;
+:transport a owl:DatatypeProperty ;
+    rdfs:domain :CulturalSite ;
     rdfs:range xsd:string ;
-    rdfs:label "Metro"@es, "Metro"@en .
-
-:renfe a owl:DatatypeProperty ;
-    rdfs:domain :Transport ;
-    rdfs:range xsd:string ;
-    rdfs:label "Renfe"@es, "Renfe"@en .
-
-:bus a owl:DatatypeProperty ;
-    rdfs:domain :Transport ;
-    rdfs:range xsd:string ;
-    rdfs:label "Bus"@es, "Bus"@en .
+    rdfs:label "Transporte"@es, "Transport"@en .
 
 #################### Data type for Accessibility ################
 

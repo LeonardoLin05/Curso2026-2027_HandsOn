@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Data analysis and resource naming strategy</title>
+  <style>
+    body {
+      max-width: 1050px;
+      margin: 32px auto;
+      padding: 0 22px 40px;
+      font: 16px/1.55 Arial, sans-serif;
+      color: #222;
+    }
+    h1, h2, h3 { color: #222; }
+    h1 { border-bottom: 2px solid #555; padding-bottom: 10px; }
+    h2 { margin-top: 34px; border-bottom: 1px solid #bbb; padding-bottom: 5px; }
+    table { width: 100%; border-collapse: collapse; margin: 14px 0 22px; }
+    th, td { border: 1px solid #bbb; padding: 8px; text-align: left; vertical-align: top; }
+    th { background: #eee; }
+    code { overflow-wrap: anywhere; }
+    .note { background: #f5f5f5; border-left: 4px solid #777; padding: 10px 14px; }
+    .small { font-size: 14px; color: #555; }
+  </style>
+</head>
+<body>
+  <h1>Hands-on Assignment 2: analysis</h1>
+  <p><strong>Group:</strong> Group06</p>
+  <p><strong>Datasets:</strong> Bibliotecas de Madrid and Museos de la ciudad de Madrid.</p>
+
+  <h2>1. Data source analysis</h2>
+
+  <h3>1.1 Files and size</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>File</th>
+        <th>Records</th>
+        <th>Columns</th>
+        <th>Format</th>
+        <th>Source</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a href="csv/libraries.csv">libraries.csv</a></td>
+        <td>52</td>
+        <td>32</td>
+        <td>CSV, semicolon separator, Windows-1252</td>
+        <td><a href="https://datos.madrid.es/dataset/201747-0-bibliobuses-bibliotecas">Ayuntamiento de Madrid</a></td>
+      </tr>
+      <tr>
+        <td><a href="csv/museums.csv">museums.csv</a></td>
+        <td>68</td>
+        <td>32</td>
+        <td>CSV, semicolon separator, Windows-1252</td>
+        <td><a href="https://datos.madrid.es/dataset/201132-0-museos">Ayuntamiento de Madrid</a></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>The two files use the same schema. This allows libraries and museums to share a general <code>Facility</code> model while keeping separate classes for each type.</p>
+
+  <h3>1.2 Schema</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Group</th>
+        <th>CSV columns</th>
+        <th>Expected RDF treatment</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Identification</td>
+        <td><code>PK</code>, <code>NOMBRE</code>, <code>TIPO</code></td>
+        <td><code>PK</code> is a local identifier. <code>NOMBRE</code> is a label. The source file determines whether the resource is a library or a museum.</td>
+      </tr>
+      <tr>
+        <td>Description and services</td>
+        <td><code>DESCRIPCION-ENTIDAD</code>, <code>HORARIO</code>, <code>EQUIPAMIENTO</code>, <code>TRANSPORTE</code>, <code>DESCRIPCION</code>, <code>ACCESIBILIDAD</code></td>
+        <td>Text values become literals. Accessibility contains one or more codes separated by commas.</td>
+      </tr>
+      <tr>
+        <td>Official page</td>
+        <td><code>CONTENT-URL</code></td>
+        <td>IRI of the municipal information page.</td>
+      </tr>
+      <tr>
+        <td>Address</td>
+        <td><code>NOMBRE-VIA</code>, <code>CLASE-VIAL</code>, <code>TIPO-NUM</code>, <code>NUM</code>, <code>PLANTA</code>, <code>PUERTA</code>, <code>ESCALERAS</code>, <code>ORIENTACION</code>, <code>CODIGO-POSTAL</code></td>
+        <td>Address components are literals. Postal codes are strings, not numbers.</td>
+      </tr>
+      <tr>
+        <td>Administrative area</td>
+        <td><code>LOCALIDAD</code>, <code>PROVINCIA</code>, <code>COD-BARRIO</code>, <code>BARRIO</code>, <code>COD-DISTRITO</code>, <code>DISTRITO</code></td>
+        <td>City, district and neighbourhood are resources. Codes are used in their identifiers.</td>
+      </tr>
+      <tr>
+        <td>Coordinates</td>
+        <td><code>COORDENADA-X</code>, <code>COORDENADA-Y</code>, <code>LATITUD</code>, <code>LONGITUD</code></td>
+        <td>X/Y are projected coordinates. Latitude and longitude are decimal values.</td>
+      </tr>
+      <tr>
+        <td>Contact</td>
+        <td><code>TELEFONO</code>, <code>FAX</code>, <code>EMAIL</code></td>
+        <td>Contact values are literals. Missing values are not generated as empty RDF statements.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>1.3 Quantities, ranges and missing values</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Check</th>
+        <th>Libraries</th>
+        <th>Museums</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Unique primary keys</td>
+        <td>52 of 52</td>
+        <td>68 of 68</td>
+      </tr>
+      <tr>
+        <td>Unique names</td>
+        <td>52 of 52</td>
+        <td>68 of 68</td>
+      </tr>
+      <tr>
+        <td>Latitude range</td>
+        <td>40.349525 to 40.490416</td>
+        <td>40.373620 to 40.545379</td>
+      </tr>
+      <tr>
+        <td>Longitude range</td>
+        <td>-3.769439 to -3.593746</td>
+        <td>-3.808430 to -3.593276</td>
+      </tr>
+      <tr>
+        <td>Coordinate coverage</td>
+        <td>52 of 52 records</td>
+        <td>68 of 68 records</td>
+      </tr>
+      <tr>
+        <td>Postal code coverage and range</td>
+        <td>52 of 52; 28002 to 28054</td>
+        <td>67 of 68; 28001 to 28049</td>
+      </tr>
+      <tr>
+        <td>Telephone coverage</td>
+        <td>52 of 52</td>
+        <td>58 of 68</td>
+      </tr>
+      <tr>
+        <td>Email coverage</td>
+        <td>52 of 52</td>
+        <td>53 of 68</td>
+      </tr>
+      <tr>
+        <td>District values</td>
+        <td>21 districts. The largest group is Puente de Vallecas with 5 libraries.</td>
+        <td>Centro contains 27 museums. One record has the value <code>DISTRITO</code>, which must be treated as a source data error.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>Important missing values:</p>
+  <ul>
+    <li>Libraries: 16 missing entity descriptions, 1 missing equipment value, 3 missing general descriptions, 2 missing district codes and 2 missing neighbourhood codes.</li>
+    <li>Museums: 17 missing entity descriptions, 8 missing schedules, 52 missing equipment values, 48 missing general descriptions, 10 missing telephone values, 15 missing email values and 1 missing postal code.</li>
+    <li><code>PLANTA</code>, <code>PUERTA</code>, <code>ESCALERAS</code>, <code>ORIENTACION</code> and <code>FAX</code> have many empty values. Empty cells will be omitted during RDF generation.</li>
+  </ul>
+
+  <p>The accessibility field is not a single number. It contains codes such as <code>1</code>, <code>1,6</code> and <code>1,5,6</code>. Each code should be split and represented separately according to the official data dictionary.</p>
+
+  <h3>1.4 Data cleaning decisions</h3>
+  <ul>
+    <li>Decode the input files as Windows-1252 and write RDF files as UTF-8.</li>
+    <li>Keep <code>PK</code>, district codes, neighbourhood codes and postal codes as strings.</li>
+    <li>Trim surrounding spaces but keep the original text of names, schedules and descriptions.</li>
+    <li>Convert latitude and longitude to decimals and validate them against the ranges found above.</li>
+    <li>Omit triples for empty cells.</li>
+    <li>Do not create a district resource from the invalid museum value <code>DISTRITO</code> until the record is corrected.</li>
+  </ul>
+
+  <h2>2. Licensing analysis</h2>
+
+  <table>
+    <tbody>
+      <tr>
+        <th>Publisher</th>
+        <td>Ayuntamiento de Madrid, through its Open Data Portal.</td>
+      </tr>
+      <tr>
+        <th>Responsible unit</th>
+        <td>Dirección General de Bibliotecas, Archivos y Museos.</td>
+      </tr>
+      <tr>
+        <th>Rightsholder / licensor</th>
+        <td>The dataset pages identify Ayuntamiento de Madrid as publisher and source. It is therefore treated as the rightsholder and licensor for this assignment.</td>
+      </tr>
+      <tr>
+        <th>Source licence</th>
+        <td><a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International (CC BY 4.0)</a> for both datasets.</td>
+      </tr>
+      <tr>
+        <th>Licence for the generated RDF dataset</th>
+        <td>CC BY 4.0.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>CC BY 4.0 permits sharing and adaptation. The publication must credit Ayuntamiento de Madrid, link to the two source dataset pages and to the licence, and state that the CSV data was transformed into RDF.</p>
+
+  <div class="note">
+    <strong>Proposed attribution:</strong> Data derived from "Bibliotecas de Madrid" and "Museos de la ciudad de Madrid", published by Ayuntamiento de Madrid under CC BY 4.0. The original CSV files were transformed into RDF by Group06.
+  </div>
+
+  <h2>3. Resource naming strategy</h2>
+
+  <h3>3.1 Base domain and namespaces</h3>
+  <p>The project will use the persistent HTTPS domain <code>https://w3id.org/madrid-culture/</code>. This is different from the default namespace generated by Protégé. The group must register the redirect with w3id.org before public deployment.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Purpose</th>
+        <th>Namespace</th>
+        <th>Prefix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Ontology</td>
+        <td><code>https://w3id.org/madrid-culture/ontology/</code></td>
+        <td><code>mc:</code></td>
+      </tr>
+      <tr>
+        <td>Individuals</td>
+        <td><code>https://w3id.org/madrid-culture/resource/</code></td>
+        <td><code>mcr:</code></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>Ontology terms and individuals use different paths. Classes and properties are defined directly under <code>/ontology/</code>. Property URIs are not placed below a class URI.</p>
+
+  <h3>3.2 Ontology term patterns</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Pattern</th>
+        <th>Examples</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Class</td>
+        <td><code>https://w3id.org/madrid-culture/ontology/{ClassName}</code></td>
+        <td><code>mc:Facility</code>, <code>mc:Library</code>, <code>mc:Museum</code>, <code>mc:District</code></td>
+      </tr>
+      <tr>
+        <td>Object property</td>
+        <td><code>https://w3id.org/madrid-culture/ontology/{propertyName}</code></td>
+        <td><code>mc:locatedInDistrict</code>, <code>mc:locatedInNeighbourhood</code></td>
+      </tr>
+      <tr>
+        <td>Datatype property</td>
+        <td><code>https://w3id.org/madrid-culture/ontology/{propertyName}</code></td>
+        <td><code>mc:name</code>, <code>mc:openingHours</code>, <code>mc:latitude</code></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>Class local names start with a capital letter. Property local names start with a lower-case letter and use lower camel case.</p>
+
+  <h3>3.3 Individual patterns</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Resource type</th>
+        <th>URI pattern</th>
+        <th>Example</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Museum</td>
+        <td><code>https://w3id.org/madrid-culture/resource/museum/{PK}</code></td>
+        <td><code>https://w3id.org/madrid-culture/resource/museum/2058</code></td>
+      </tr>
+      <tr>
+        <td>Library</td>
+        <td><code>https://w3id.org/madrid-culture/resource/library/{PK}</code></td>
+        <td><code>https://w3id.org/madrid-culture/resource/library/25526</code></td>
+      </tr>
+      <tr>
+        <td>District</td>
+        <td><code>https://w3id.org/madrid-culture/resource/district/{COD-DISTRITO}</code></td>
+        <td><code>https://w3id.org/madrid-culture/resource/district/10</code></td>
+      </tr>
+      <tr>
+        <td>Neighbourhood</td>
+        <td><code>https://w3id.org/madrid-culture/resource/neighbourhood/{COD-DISTRITO}-{COD-BARRIO}</code></td>
+        <td><code>https://w3id.org/madrid-culture/resource/neighbourhood/9-7</code></td>
+      </tr>
+      <tr>
+        <td>City</td>
+        <td><code>https://w3id.org/madrid-culture/resource/city/{slug}</code></td>
+        <td><code>https://w3id.org/madrid-culture/resource/city/madrid</code></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>Different classes use different paths, for example <code>/museum/</code> and <code>/library/</code>. Facility names are not used in URIs because names may change. The municipal <code>PK</code> is stable and unique inside each source file. A neighbourhood URI contains both district and neighbourhood code because neighbourhood codes may repeat in different districts.</p>
+
+  <h3>3.4 URI and publication rules</h3>
+  <ul>
+    <li>Use HTTPS slash URIs.</li>
+    <li>Use lower-case path segments and ASCII characters.</li>
+    <li>Do not include spaces, accents, file extensions or query parameters in canonical resource URIs.</li>
+    <li>Do not change an existing URI when a name or description changes.</li>
+    <li>When an ontology term is replaced, keep its URI and mark it as deprecated instead of reusing it for another meaning.</li>
+  </ul>
+
+  <h3>3.5 Content negotiation</h3>
+  <p>Canonical ontology and resource URIs will return an HTTP 303 redirect according to the requested representation:</p>
+  <ul>
+    <li><code>Accept: text/html</code> - HTML documentation.</li>
+    <li><code>Accept: text/turtle</code> - Turtle representation.</li>
+    <li><code>Accept: application/ld+json</code> - JSON-LD representation.</li>
+    <li>Requests without a supported <code>Accept</code> header - HTML by default.</li>
+  </ul>
+
+  <p>The w3id.org configuration will redirect to files hosted in the Group06 GitHub repository. The canonical identifiers remain unchanged if the files move.</p>
+
+  <h3>3.6 Links to external resources</h3>
+  <p>Verified equivalents may be linked to Wikidata. For example, Madrid can link to <a href="https://www.wikidata.org/wiki/Q2807">Q2807</a> and Museo del Prado can link to <a href="https://www.wikidata.org/wiki/Q160112">Q160112</a>. <code>owl:sameAs</code> will only be used when both URIs identify the same real-world entity.</p>
+
+  <h2>4. References</h2>
+  <ul>
+    <li><a href="https://datos.madrid.es/dataset/201747-0-bibliobuses-bibliotecas">Bibliotecas de Madrid</a>.</li>
+    <li><a href="https://datos.madrid.es/dataset/201132-0-museos">Museos de la ciudad de Madrid</a>.</li>
+    <li><a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International</a>.</li>
+    <li><a href="https://www.w3.org/TR/ld-bp/">W3C Best Practices for Publishing Linked Data</a>.</li>
+  </ul>
+
+  <p class="small">Statistics were calculated from the CSV files stored in the Group06 repository.</p>
+</body>
+</html>

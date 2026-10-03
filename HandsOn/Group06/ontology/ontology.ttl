@@ -67,12 +67,12 @@
 :locatedInDistrict a owl:ObjectProperty ;
     rdfs:domain :Address ;
     rdfs:range :District ;
-    rdfs:label  "Tiene distrito"@es, "Has district"@en .
+    rdfs:label  "Localizado en el distrito"@es, "Located in the district"@en .
 
 :locatedInNeighborhood a owl:ObjectProperty ;
     rdfs:domain :Address ;
     rdfs:range :Neighborhood ;
-    rdfs:label  "Tiene barrio"@es, "Has neighborhood"@en .
+    rdfs:label  "Localizado en el barrio"@es, "Located in the neighborhood"@en .
 
 #################################################################
 #    Datatype Properties
@@ -95,12 +95,12 @@
 :metro a owl:DatatypeProperty ;
     rdfs:domain :Transport ;
     rdfs:range xsd:string ;
-    rdfs:label "Bus"@es, "Bus"@en .
+    rdfs:label "Metro"@es, "Metro"@en .
 
 :renfe a owl:DatatypeProperty ;
     rdfs:domain :Transport ;
     rdfs:range xsd:string ;
-    rdfs:label "Bus"@es, "Bus"@en .
+    rdfs:label "Renfe"@es, "Renfe"@en .
 
 :bus a owl:DatatypeProperty ;
     rdfs:domain :Transport ;

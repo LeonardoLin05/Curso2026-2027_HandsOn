@@ -1,83 +1,124 @@
 prefixes:
-  mc: https://w3id.org/madrid-culture/ontology/
-  mcr: https://w3id.org/madrid-culture/resource/
+  mc: http://w3id.org/madrid-culture/ontology/
+  mcr: http://w3id.org/madrid-culture/resource/
   rdfs: http://www.w3.org/2000/01/rdf-schema#
   schema: http://schema.org/
   xsd: http://www.w3.org/2001/XMLSchema#
 
 mappings:
   libraries:
-    sources: [[csv/clean/libraries.csv~csv]]
-    s: mcr:library/$(id)
+    sources: 
+      - [csv/libraries-updated.csv~csv]
+    s: mcr:library/$(PK)
     po:
       - [a, mc:Library]
-      - [rdfs:label, $(name), es~lang]
-      - [schema:name, $(name), es~lang]
-      - [schema:description, $(description), es~lang]
-      - [schema:openingHours, $(opening_hours), xsd:string]
-      - [mc:transport, $(transport), xsd:string]
-      - [schema:url, $(content_url)~iri]
-      - [mc:hasAddress, mcr:address/$(id)~iri]
-      - [schema:latitude, $(latitude), xsd:decimal]
-      - [schema:longitude, $(longitude), xsd:decimal]
-      - [schema:telephone, $(telephone), xsd:string]
-      - [schema:faxNumber, $(fax), xsd:string]
-      - [mc:email, $(email), xsd:string]
-      - [mc:type, $(facility_type), xsd:string]
+      - [rdfs:label, $(NOMBRE)]
+      - [schema:name, $(NOMBRE)]
+      - [schema:openingHours, $(HORARIO), xsd:string]
+      - [mc:transport, $(TRANSPORTE), xsd:string]
+      - [schema:url, $(CONTENT-URL)~iri]
+      - [mc:hasAccessibility, mcr:accessibility/$(PK)~iri]
+      - [mc:hasAddress, mcr:address/$(PK)~iri]
+      - [schema:latitude, $(LATITUD), xsd:decimal]
+      - [schema:longitude, $(LONGITUD), xsd:decimal]
+      - [schema:telephone, $(TELEFONO), xsd:string]
+      - [mc:email, $(EMAIL), xsd:string]
+      - [mc:type, $(TIPO), xsd:string]
 
   museums:
-    sources: [[csv/clean/museums.csv~csv]]
-    s: mcr:museum/$(id)
+    sources: 
+      - [csv/museums-updated.csv~csv]
+    s: mcr:museum/$(PK)
     po:
       - [a, mc:Museum]
-      - [rdfs:label, $(name), es~lang]
-      - [schema:name, $(name), es~lang]
-      - [schema:description, $(description), es~lang]
-      - [schema:openingHours, $(opening_hours), xsd:string]
-      - [mc:transport, $(transport), xsd:string]
-      - [schema:url, $(content_url)~iri]
-      - [mc:hasAddress, mcr:address/$(id)~iri]
-      - [schema:latitude, $(latitude), xsd:decimal]
-      - [schema:longitude, $(longitude), xsd:decimal]
-      - [schema:telephone, $(telephone), xsd:string]
-      - [schema:faxNumber, $(fax), xsd:string]
-      - [mc:email, $(email), xsd:string]
-      - [mc:type, $(facility_type), xsd:string]
+      - [rdfs:label, $(NOMBRE)]
+      - [schema:name, $(NOMBRE)]
+      - [schema:openingHours, $(HORARIO), xsd:string]
+      - [mc:transport, $(TRANSPORTE), xsd:string]
+      - [schema:url, $(CONTENT-URL)~iri]
+      - [mc:hasAccessibility, mcr:accessibility/$(PK)~iri]
+      - [mc:hasAddress, mcr:address/$(PK)~iri]
+      - [schema:latitude, $(LATITUD), xsd:decimal]
+      - [schema:longitude, $(LONGITUD), xsd:decimal]
+      - [schema:telephone, $(TELEFONO), xsd:string]
+      - [mc:email, $(EMAIL), xsd:string]
+      - [mc:type, $(TIPO), xsd:string]
+
+  library-accessibility:
+    sources:
+      - [csv/libraries-updated.csv~csv]
+    s: mcr:accessibility/(PK)
+    po:
+      - [a, mc:Accessibility]
+      - [mc:accesible, $(ACCESIBLE), xsd:boolean]
+      - [mc:partiallyAccessible, $(PARCIALMENTE-ACCESIBLE), xsd:boolean]
+      - [mc:noInfoAccessibility, $(SIN-INFORMACION-ACCESIBILIDAD), xsd:boolean]
+      - [mc:signLanguage, $(LENGUA-SIGNO), xsd:boolean]
+      - [mc:tactilePaving, $(SEÑALIZACION-PODOTACTIL), xsd:boolean]
+      - [mc:magneticInductionLoop, $(BUCLE-INDUCCION-MAGNETICO), xsd:boolean]
+
+  museum-accessibility:
+    sources:
+      - [csv/museums-updated.csv~csv]
+    s: mcr:accessibility/(PK)
+    po:
+      - [a, mc:Accessibility]
+      - [mc:accesible, $(ACCESIBLE), xsd:boolean]
+      - [mc:partiallyAccessible, $(PARCIALMENTE-ACCESIBLE), xsd:boolean]
+      - [mc:noInfoAccessibility, $(SIN-INFORMACION-ACCESIBILIDAD), xsd:boolean]
+      - [mc:signLanguage, $(LENGUA-SIGNO), xsd:boolean]
+      - [mc:tactilePaving, $(SEÑALIZACION-PODOTACTIL), xsd:boolean]
+      - [mc:magneticInductionLoop, $(BUCLE-INDUCCION-MAGNETICO), xsd:boolean]
 
   library-addresses:
-    sources: [[csv/clean/libraries.csv~csv]]
-    s: mcr:address/$(id)
+    sources: 
+      - [csv/libraries-updated.csv~csv]
+    s: mcr:address/$(PK)
     po:
       - [a, mc:Address]
-      - [rdfs:label, $(address_label), es~lang]
-      - [mc:streetAddress, $(street_address), xsd:string]
-      - [mc:postalCode, $(postal_code), xsd:string]
-      - [mc:locatedInDistrict, mcr:district/$(district_code)~iri]
-      - [mc:locatedInNeighborhood, mcr:neighborhood/$(district_code)-$(neighborhood_code)~iri]
+      - [mc:streetAddress, $(DIRECCION), xsd:string]
+      - [mc:postalCode, $(CODIGO-POSTAL), xsd:string]
+      - [mc:locatedInDistrict, mcr:district/$(COD-DISTRITO)~iri]
+      - [mc:locatedInNeighborhood, mcr:neighborhood/$(COD-DISTRITO)-$(COD-BARRIO)~iri]
 
   museum-addresses:
-    sources: [[csv/clean/museums.csv~csv]]
-    s: mcr:address/$(id)
+    sources: 
+    - [csv/museums-updated.csv~csv]
+    s: mcr:address/$(PK)
     po:
       - [a, mc:Address]
-      - [rdfs:label, $(address_label), es~lang]
-      - [mc:streetAddress, $(street_address), xsd:string]
-      - [mc:postalCode, $(postal_code), xsd:string]
-      - [mc:locatedInDistrict, mcr:district/$(district_code)~iri]
-      - [mc:locatedInNeighborhood, mcr:neighborhood/$(district_code)-$(neighborhood_code)~iri]
+      - [mc:streetAddress, $(DIRECCION), xsd:string]
+      - [mc:postalCode, $(CODIGO-POSTAL), xsd:string]
+      - [mc:locatedInDistrict, mcr:district/$(COD-DISTRITO)~iri]
+      - [mc:locatedInNeighborhood, mcr:neighborhood/$(COD-DISTRITO)-$(COD-BARRIO)~iri]
 
-  districts:
-    sources: [[csv/clean/districts.csv~csv]]
-    s: mcr:district/$(district_code)
+  library-districts:
+    sources: 
+      - [csv/libraries-updated.csv~csv]
+    s: mcr:district/$(COD-DISTRITO)
     po:
       - [a, mc:District]
-      - [rdfs:label, $(district_name), es~lang]
-      - [schema:name, $(district_name), es~lang]
+      - [schema:name, $(DISTRITO)]
 
-  neighborhoods:
-    sources: [[csv/clean/neighborhoods.csv~csv]]
-    s: mcr:neighborhood/$(district_code)-$(neighborhood_code)
+  museum-districts:
+    sources: 
+      - [csv/museums-updated.csv~csv]
+    s: mcr:district/$(COD-DISTRITO)
+    po:
+      - [a, mc:District]
+      - [schema:name, $(DISTRITO)]
+
+  library-neighborhoods:
+    sources: 
+      - [csv/libraries-updated.csv~csv]
+    s: mcr:neighborhood/$(COD-DISTRITO)-$(COD-BARRIO)
     po:
       - [a, mc:Neighborhood]
-      - [rdfs:label, $(neighborhood_name), es~lang]
-      - [schema:name, $(neighborhood_name), es~lang]
+      - [schema:name, $(BARRIO)]
+
+  museum-neighborhoods:
+    sources: [[csv/museums-updated.csv~csv]]
+    s: mcr:neighborhood/$(COD-DISTRITO)-$(COD-BARRIO)
+    po:
+      - [a, mc:Neighborhood]
+      - [schema:name, $(BARRIO)]

@@ -4,7 +4,7 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix schema: <http://schema.org/> .
-@prefix mc: <https://w3id.org/madrid-culture/ontology/> .
+@prefix mc: <http://w3id.org/madrid-culture/ontology/> .
 
 <#LibrariesMap> a rr:TriplesMap;
     rml:logicalSource [
@@ -13,7 +13,7 @@
     ];
 
     rr:subjectMap [
-        rr:template "https://w3id.org/madrid-culture/resource/library/{PK}";
+        rr:template "http://w3id.org/madrid-culture/resource/library/{PK}";
         rr:class mc:Library
     ];
 
@@ -60,7 +60,7 @@
     rr:predicateObjectMap [ 
         rr:predicate mc:hasAccessibility; 
         rr:objectMap [ 
-            rr:template "https://w3id.org/madrid-culture/resource/accessibility/{PK}"; 
+            rr:template "http://w3id.org/madrid-culture/resource/accessibility/{PK}"; 
             rr:termType rr:IRI 
         ] 
     ];
@@ -68,7 +68,7 @@
     rr:predicateObjectMap [ 
         rr:predicate mc:hasAddress; 
         rr:objectMap [ 
-            rr:template "https://w3id.org/madrid-culture/resource/address/{PK}"; 
+            rr:template "http://w3id.org/madrid-culture/resource/address/{PK}"; 
             rr:termType rr:IRI 
         ] 
     ];
@@ -119,7 +119,7 @@
         rml:referenceFormulation ql:CSV
     ];
     rr:subjectMap [
-        rr:template "https://w3id.org/madrid-culture/resource/museum/{PK}" ;
+        rr:template "http://w3id.org/madrid-culture/resource/museum/{PK}" ;
         rr:class mc:Museum
     ];
 
@@ -158,7 +158,7 @@
     rr:predicateObjectMap [ 
         rr:predicate mc:hasAccessibility; 
         rr:objectMap [ 
-            rr:template "https://w3id.org/madrid-culture/resource/accessibility/{PK}"; 
+            rr:template "http://w3id.org/madrid-culture/resource/accessibility/{PK}"; 
             rr:termType rr:IRI 
         ] 
     ];
@@ -166,7 +166,7 @@
     rr:predicateObjectMap [ 
         rr:predicate mc:hasAddress; 
         rr:objectMap [ 
-            rr:template "https://w3id.org/madrid-culture/resource/address/{PK}"; 
+            rr:template "http://w3id.org/madrid-culture/resource/address/{PK}"; 
             rr:termType rr:IRI 
         ] 
     ];
@@ -218,7 +218,7 @@
     ];
 
     rr:subjectMap [
-        rr:template "https://w3id.org/madrid-culture/resource/accessibility/{PK}";
+        rr:template "http://w3id.org/madrid-culture/resource/accessibility/{PK}";
         rr:class mc:Accessibility;
         rr:termType rr:IRI
     ];
@@ -278,7 +278,7 @@
     ];
 
     rr:subjectMap [
-        rr:template "https://w3id.org/madrid-culture/resource/accessibility/{PK}";
+        rr:template "http://w3id.org/madrid-culture/resource/accessibility/{PK}";
         rr:class mc:Accessibility;
         rr:termType rr:IRI
     ];
@@ -338,7 +338,7 @@
     ];
 
     rr:subjectMap [
-        rr:template "https://w3id.org/madrid-culture/resource/address/{PK}";
+        rr:template "http://w3id.org/madrid-culture/resource/address/{PK}";
         rr:class mc:Address;
         rr:termType rr:IRI
     ];
@@ -362,7 +362,7 @@
     rr:predicateObjectMap [ 
         rr:predicate mc:locatedInDistrict; 
         rr:objectMap [ 
-            rr:template "https://w3id.org/madrid-culture/resource/district/{COD-DISTRITO}"; 
+            rr:template "http://w3id.org/madrid-culture/resource/district/{COD-DISTRITO}"; 
             rr:termType rr:IRI 
         ] 
     ];
@@ -370,7 +370,7 @@
     rr:predicateObjectMap [ 
         rr:predicate mc:locatedInNeighborhood; 
         rr:objectMap [ 
-            rr:template "https://w3id.org/madrid-culture/resource/neighborhood/{COD-DISTRITO}-{COD-BARRIO}"; 
+            rr:template "http://w3id.org/madrid-culture/resource/neighborhood/{COD-DISTRITO}-{COD-BARRIO}"; 
             rr:termType rr:IRI 
         ] 
     ].
@@ -382,7 +382,7 @@
     ];
 
     rr:subjectMap [
-        rr:template "https://w3id.org/madrid-culture/resource/address/{PK}" ;
+        rr:template "http://w3id.org/madrid-culture/resource/address/{PK}" ;
         rr:class mc:Address;
         rr:termType rr:IRI
     ];
@@ -406,7 +406,7 @@
     rr:predicateObjectMap [ 
         rr:predicate mc:locatedInDistrict; 
         rr:objectMap [ 
-            rr:template "https://w3id.org/madrid-culture/resource/district/{COD-DISTRITO}"; 
+            rr:template "http://w3id.org/madrid-culture/resource/district/{COD-DISTRITO}"; 
             rr:termType rr:IRI 
         ] 
     ];
@@ -414,7 +414,7 @@
     rr:predicateObjectMap [ 
         rr:predicate mc:locatedInNeighborhood; 
         rr:objectMap [ 
-            rr:template "https://w3id.org/madrid-culture/resource/neighborhood/{COD-DISTRITO}-{COD-BARRIO}"; 
+            rr:template "http://w3id.org/madrid-culture/resource/neighborhood/{COD-DISTRITO}-{COD-BARRIO}"; 
             rr:termType rr:IRI 
         ] 
     ].
@@ -426,7 +426,7 @@
     ];
 
     rr:subjectMap [
-        rr:template "https://w3id.org/madrid-culture/resource/district/{COD-DISTRITO}";
+        rr:template "http://w3id.org/madrid-culture/resource/district/{COD-DISTRITO}";
         rr:class mc:District;
         rr:termType rr:IRI
     ];
@@ -446,7 +446,7 @@
     ];
 
     rr:subjectMap [
-        rr:template "https://w3id.org/madrid-culture/resource/district/{COD-DISTRITO}";
+        rr:template "http://w3id.org/madrid-culture/resource/district/{COD-DISTRITO}";
         rr:class mc:District;
         rr:termType rr:IRI
     ];
@@ -466,7 +466,7 @@
     ];
 
     rr:subjectMap [
-        rr:template "https://w3id.org/madrid-culture/resource/neighborhood/{COD-DISTRITO}-{COD-BARRIO}";
+        rr:template "http://w3id.org/madrid-culture/resource/neighborhood/{COD-DISTRITO}-{COD-BARRIO}";
         rr:class mc:Neighborhood;
         rr:termType rr:IRI
     ];
@@ -486,7 +486,7 @@
     ];
 
     rr:subjectMap [
-        rr:template "https://w3id.org/madrid-culture/resource/neighborhood/{COD-DISTRITO}-{COD-BARRIO}";
+        rr:template "http://w3id.org/madrid-culture/resource/neighborhood/{COD-DISTRITO}-{COD-BARRIO}";
         rr:class mc:Neighborhood;
         rr:termType rr:IRI
     ];

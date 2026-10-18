@@ -19,14 +19,6 @@
     ];
 
     rr:predicateObjectMap [ 
-        rr:predicate rdfs:label; 
-        rr:objectMap [ 
-            rml:reference "NOMBRE";
-            rr:datatype xsd:string 
-        ] 
-    ];
-
-    rr:predicateObjectMap [ 
         rr:predicate schema:name; 
         rr:objectMap [ 
             rml:reference "NOMBRE";
@@ -241,7 +233,7 @@
     ];
 
     rr:predicateObjectMap [ 
-        rr:predicate mc:accesible; 
+        rr:predicate mc:accessible; 
         rr:objectMap [ 
             rml:reference "ACCESIBLE";
             rr:datatype xsd:boolean 
@@ -301,7 +293,7 @@
     ];
 
     rr:predicateObjectMap [ 
-        rr:predicate mc:accesible; 
+        rr:predicate mc:accessible; 
         rr:objectMap [ 
             rml:reference "ACCESIBLE";
             rr:datatype xsd:boolean 

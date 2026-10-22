@@ -1,6 +1,6 @@
 prefixes:
   mc: http://w3id.org/madrid-culture/ontology/
-  mcr: http://w3id.org/madrid-culture/resource/
+  res: http://w3id.org/madrid-culture/resource/
   rdfs: http://www.w3.org/2000/01/rdf-schema#
   schema: http://schema.org/
   xsd: http://www.w3.org/2001/XMLSchema#
@@ -9,16 +9,15 @@ mappings:
   libraries:
     sources: 
       - [csv/libraries-updated.csv~csv]
-    s: mcr:library/$(PK)
+    s: res:library/$(PK)
     po:
       - [a, mc:Library]
-      - [rdfs:label, $(NOMBRE)]
       - [schema:name, $(NOMBRE)]
       - [schema:openingHours, $(HORARIO), xsd:string]
       - [mc:transport, $(TRANSPORTE), xsd:string]
       - [schema:url, $(CONTENT-URL)~iri]
-      - [mc:hasAccessibility, mcr:accessibility/$(PK)~iri]
-      - [mc:hasAddress, mcr:address/$(PK)~iri]
+      - [mc:hasAccessibility, res:accessibility/$(PK)~iri]
+      - [mc:hasAddress, res:address/$(PK)~iri]
       - [schema:latitude, $(LATITUD), xsd:decimal]
       - [schema:longitude, $(LONGITUD), xsd:decimal]
       - [schema:telephone, $(TELEFONO), xsd:string]
@@ -28,16 +27,15 @@ mappings:
   museums:
     sources: 
       - [csv/museums-updated.csv~csv]
-    s: mcr:museum/$(PK)
+    s: res:museum/$(PK)
     po:
       - [a, mc:Museum]
-      - [rdfs:label, $(NOMBRE)]
       - [schema:name, $(NOMBRE)]
       - [schema:openingHours, $(HORARIO), xsd:string]
       - [mc:transport, $(TRANSPORTE), xsd:string]
       - [schema:url, $(CONTENT-URL)~iri]
-      - [mc:hasAccessibility, mcr:accessibility/$(PK)~iri]
-      - [mc:hasAddress, mcr:address/$(PK)~iri]
+      - [mc:hasAccessibility, res:accessibility/$(PK)~iri]
+      - [mc:hasAddress, res:address/$(PK)~iri]
       - [schema:latitude, $(LATITUD), xsd:decimal]
       - [schema:longitude, $(LONGITUD), xsd:decimal]
       - [schema:telephone, $(TELEFONO), xsd:string]
@@ -47,10 +45,10 @@ mappings:
   library-accessibility:
     sources:
       - [csv/libraries-updated.csv~csv]
-    s: mcr:accessibility/(PK)
+    s: res:accessibility/(PK)
     po:
       - [a, mc:Accessibility]
-      - [mc:accesible, $(ACCESIBLE), xsd:boolean]
+      - [mc:accessible, $(ACCESIBLE), xsd:boolean]
       - [mc:partiallyAccessible, $(PARCIALMENTE-ACCESIBLE), xsd:boolean]
       - [mc:noInfoAccessibility, $(SIN-INFORMACION-ACCESIBILIDAD), xsd:boolean]
       - [mc:signLanguage, $(LENGUA-SIGNO), xsd:boolean]
@@ -60,10 +58,10 @@ mappings:
   museum-accessibility:
     sources:
       - [csv/museums-updated.csv~csv]
-    s: mcr:accessibility/(PK)
+    s: res:accessibility/(PK)
     po:
       - [a, mc:Accessibility]
-      - [mc:accesible, $(ACCESIBLE), xsd:boolean]
+      - [mc:accessible, $(ACCESIBLE), xsd:boolean]
       - [mc:partiallyAccessible, $(PARCIALMENTE-ACCESIBLE), xsd:boolean]
       - [mc:noInfoAccessibility, $(SIN-INFORMACION-ACCESIBILIDAD), xsd:boolean]
       - [mc:signLanguage, $(LENGUA-SIGNO), xsd:boolean]
@@ -73,29 +71,29 @@ mappings:
   library-addresses:
     sources: 
       - [csv/libraries-updated.csv~csv]
-    s: mcr:address/$(PK)
+    s: res:address/$(PK)
     po:
       - [a, mc:Address]
       - [mc:streetAddress, $(DIRECCION), xsd:string]
       - [mc:postalCode, $(CODIGO-POSTAL), xsd:string]
-      - [mc:locatedInDistrict, mcr:district/$(COD-DISTRITO)~iri]
-      - [mc:locatedInNeighborhood, mcr:neighborhood/$(COD-DISTRITO)-$(COD-BARRIO)~iri]
+      - [mc:locatedInDistrict, res:district/$(COD-DISTRITO)~iri]
+      - [mc:locatedInNeighborhood, res:neighborhood/$(COD-DISTRITO)-$(COD-BARRIO)~iri]
 
   museum-addresses:
     sources: 
     - [csv/museums-updated.csv~csv]
-    s: mcr:address/$(PK)
+    s: res:address/$(PK)
     po:
       - [a, mc:Address]
       - [mc:streetAddress, $(DIRECCION), xsd:string]
       - [mc:postalCode, $(CODIGO-POSTAL), xsd:string]
-      - [mc:locatedInDistrict, mcr:district/$(COD-DISTRITO)~iri]
-      - [mc:locatedInNeighborhood, mcr:neighborhood/$(COD-DISTRITO)-$(COD-BARRIO)~iri]
+      - [mc:locatedInDistrict, res:district/$(COD-DISTRITO)~iri]
+      - [mc:locatedInNeighborhood, res:neighborhood/$(COD-DISTRITO)-$(COD-BARRIO)~iri]
 
   library-districts:
     sources: 
       - [csv/libraries-updated.csv~csv]
-    s: mcr:district/$(COD-DISTRITO)
+    s: res:district/$(COD-DISTRITO)
     po:
       - [a, mc:District]
       - [schema:name, $(DISTRITO)]
@@ -103,7 +101,7 @@ mappings:
   museum-districts:
     sources: 
       - [csv/museums-updated.csv~csv]
-    s: mcr:district/$(COD-DISTRITO)
+    s: res:district/$(COD-DISTRITO)
     po:
       - [a, mc:District]
       - [schema:name, $(DISTRITO)]
@@ -111,14 +109,14 @@ mappings:
   library-neighborhoods:
     sources: 
       - [csv/libraries-updated.csv~csv]
-    s: mcr:neighborhood/$(COD-DISTRITO)-$(COD-BARRIO)
+    s: res:neighborhood/$(COD-DISTRITO)-$(COD-BARRIO)
     po:
       - [a, mc:Neighborhood]
       - [schema:name, $(BARRIO)]
 
   museum-neighborhoods:
     sources: [[csv/museums-updated.csv~csv]]
-    s: mcr:neighborhood/$(COD-DISTRITO)-$(COD-BARRIO)
+    s: res:neighborhood/$(COD-DISTRITO)-$(COD-BARRIO)
     po:
       - [a, mc:Neighborhood]
       - [schema:name, $(BARRIO)]

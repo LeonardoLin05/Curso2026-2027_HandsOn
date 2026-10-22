@@ -1,30 +1,39 @@
-PREFIX mc: <https://w3id.org/madrid-culture/ontology/>
+PREFIX mc: <http://w3id.org/madrid-culture/ontology/>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX schema: <http://schema.org/>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
 # Q1. Count generated resources by class.
-# Expected: 52 libraries, 68 museums, 120 addresses, 21 districts and 66 neighborhoods.
+# Expected: 52 libraries, 68 museums, 120 addresses, 120 accessibility, 21 districts and 66 neighborhoods.
 SELECT ?class (COUNT(DISTINCT ?resource) AS ?count)
 WHERE {
-  VALUES ?class { mc:Library mc:Museum mc:Address mc:District mc:Neighborhood }
+  VALUES ?class { mc:Library mc:Museum mc:Accessibility mc:Address mc:District mc:Neighborhood }
   ?resource a ?class .
 }
 GROUP BY ?class
 ORDER BY ?class
 
-# Q2. Show cultural sites with their address, district and neighborhood.
-SELECT ?site ?name ?address ?districtName ?neighborhoodName
+# Q2. Show cultural sites with their address, district and neighborhood and accessibility.
+SELECT ?site ?name ?address ?districtName ?neighborhoodName ?accessibility ?accessible ?partiallyAccessible ?noInfoAccessibility ?signLanguage ?tactilePaving ?magneticInductionLoop
 WHERE {
   ?site a ?siteClass ;
-        rdfs:label ?name ;
-        mc:hasAddress ?address .
+        schema:name ?name ;
+        mc:hasAddress ?address ;
+    	mc:hasAccessibility ?accessibility .
   VALUES ?siteClass { mc:Library mc:Museum }
   OPTIONAL {
-    ?address mc:locatedInDistrict/rdfs:label ?districtName .
+    ?address mc:locatedInDistrict/schema:name ?districtName .
   }
   OPTIONAL {
-    ?address mc:locatedInNeighborhood/rdfs:label ?neighborhoodName .
+    ?address mc:locatedInNeighborhood/schema:name ?neighborhoodName .
+  }
+  OPTIONAL {
+    ?accessibility mc:accesible ?accessible ;
+        mc:partiallyAccessible ?partiallyAccessible ;
+        mc:noInfoAccessibility ?noInfoAccessibility ;
+        mc:signLanguage ?signLanguage ;
+        mc:tactilePaving ?tactilePaving ;
+        mc:magneticInductionLoop ?magneticInductionLoop .
   }
 }
 ORDER BY ?name
@@ -35,25 +44,26 @@ WHERE {
   ?site a ?siteClass ; mc:hasAddress ?address .
   VALUES ?siteClass { mc:Library mc:Museum }
   ?address mc:locatedInDistrict ?district .
-  ?district rdfs:label ?districtName .
+  ?district schema:name ?districtName .
 }
 GROUP BY ?district ?districtName ?siteClass
 ORDER BY ?districtName ?siteClass
 
-# Q4. Integrity check: every generated individual has a type and a label.
+# Q4. Integrity check: every generated individual has a type and a name.
 # Expected: no rows.
-SELECT ?resource ("missing label" AS ?problem)
+SELECT ?resource ("missing name" AS ?problem)
 WHERE {
-  VALUES ?class { mc:Library mc:Museum mc:Address mc:District mc:Neighborhood }
+  VALUES ?class { mc:Library mc:Museum mc:District mc:Neighborhood }
   ?resource a ?class .
-  FILTER NOT EXISTS { ?resource rdfs:label ?label }
+  FILTER NOT EXISTS { ?resource schema:name ?name }
 }
 
-# Q5. Integrity check: every linked address, district and neighborhood exists.
+# Q5. Integrity check: every linked accessibility, address, district and neighborhood exists.
 # Expected: no rows.
 SELECT ?source ?predicate ?target
 WHERE {
   VALUES (?predicate ?expectedClass) {
+    (mc:hasAccessibility mc:Accessibility)
     (mc:hasAddress mc:Address)
     (mc:locatedInDistrict mc:District)
     (mc:locatedInNeighborhood mc:Neighborhood)

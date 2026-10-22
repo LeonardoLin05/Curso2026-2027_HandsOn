@@ -4,104 +4,497 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix schema: <http://schema.org/> .
-@prefix mc: <https://w3id.org/madrid-culture/ontology/> .
+@prefix mc: <http://w3id.org/madrid-culture/ontology/> .
 
-<#LibrariesMap>
-    a rr:TriplesMap ;
+<#LibrariesMap> a rr:TriplesMap;
     rml:logicalSource [
-        rml:source "csv/clean/libraries.csv" ;
+        rml:source "csv/libraries-updated.csv";
         rml:referenceFormulation ql:CSV
-    ] ;
-    rr:subjectMap [
-        rr:template "https://w3id.org/madrid-culture/resource/library/{id}" ;
-        rr:class mc:Library ;
-        rr:termType rr:IRI
-    ] ;
-    rr:predicateObjectMap [ rr:predicate rdfs:label ; rr:objectMap [ rml:reference "name" ; rr:language "es" ] ] ;
-    rr:predicateObjectMap [ rr:predicate schema:name ; rr:objectMap [ rml:reference "name" ; rr:language "es" ] ] ;
-    rr:predicateObjectMap [ rr:predicate schema:description ; rr:objectMap [ rml:reference "description" ; rr:language "es" ] ] ;
-    rr:predicateObjectMap [ rr:predicate schema:openingHours ; rr:objectMap [ rml:reference "opening_hours" ; rr:datatype xsd:string ] ] ;
-    rr:predicateObjectMap [ rr:predicate mc:transport ; rr:objectMap [ rml:reference "transport" ; rr:datatype xsd:string ] ] ;
-    rr:predicateObjectMap [ rr:predicate schema:url ; rr:objectMap [ rml:reference "content_url" ; rr:termType rr:IRI ] ] ;
-    rr:predicateObjectMap [ rr:predicate mc:hasAddress ; rr:objectMap [ rr:template "https://w3id.org/madrid-culture/resource/address/{id}" ; rr:termType rr:IRI ] ] ;
-    rr:predicateObjectMap [ rr:predicate schema:latitude ; rr:objectMap [ rml:reference "latitude" ; rr:datatype xsd:decimal ] ] ;
-    rr:predicateObjectMap [ rr:predicate schema:longitude ; rr:objectMap [ rml:reference "longitude" ; rr:datatype xsd:decimal ] ] ;
-    rr:predicateObjectMap [ rr:predicate schema:telephone ; rr:objectMap [ rml:reference "telephone" ; rr:datatype xsd:string ] ] ;
-    rr:predicateObjectMap [ rr:predicate schema:faxNumber ; rr:objectMap [ rml:reference "fax" ; rr:datatype xsd:string ] ] ;
-    rr:predicateObjectMap [ rr:predicate mc:email ; rr:objectMap [ rml:reference "email" ; rr:datatype xsd:string ] ] ;
-    rr:predicateObjectMap [ rr:predicate mc:type ; rr:objectMap [ rml:reference "facility_type" ; rr:datatype xsd:string ] ] .
+    ];
 
-<#MuseumsMap>
-    a rr:TriplesMap ;
+    rr:subjectMap [
+        rr:template "http://w3id.org/madrid-culture/resource/library/{PK}";
+        rr:class mc:Library
+    ];
+
+    rr:predicateObjectMap [ 
+        rr:predicate rdfs:label; 
+        rr:objectMap [ 
+            rml:reference "NOMBRE";
+            rr:datatype xsd:string 
+        ] 
+    ];
+
+    rr:predicateObjectMap [ 
+        rr:predicate schema:name; 
+        rr:objectMap [ 
+            rml:reference "NOMBRE";
+            rr:datatype xsd:string 
+        ] 
+    ];
+
+    rr:predicateObjectMap [ 
+        rr:predicate schema:openingHours; 
+        rr:objectMap [ 
+            rml:reference "HORARIO"; 
+            rr:datatype xsd:string
+        ] 
+    ];
+
+    rr:predicateObjectMap [ 
+        rr:predicate mc:transport; 
+        rr:objectMap [ 
+            rml:reference "TRANSPORTE"; 
+            rr:datatype xsd:string
+        ] 
+    ];
+
+    rr:predicateObjectMap [ 
+        rr:predicate schema:url; 
+        rr:objectMap [ 
+            rml:reference "CONTENT-URL"; 
+            rr:termType rr:IRI 
+        ] 
+    ];
+
+    rr:predicateObjectMap [ 
+        rr:predicate mc:hasAccessibility; 
+        rr:objectMap [ 
+            rr:template "http://w3id.org/madrid-culture/resource/accessibility/{PK}"; 
+            rr:termType rr:IRI 
+        ] 
+    ];
+
+    rr:predicateObjectMap [ 
+        rr:predicate mc:hasAddress; 
+        rr:objectMap [ 
+            rr:template "http://w3id.org/madrid-culture/resource/address/{PK}"; 
+            rr:termType rr:IRI 
+        ] 
+    ];
+
+    rr:predicateObjectMap [ 
+        rr:predicate schema:latitude; 
+        rr:objectMap [ 
+            rml:reference "LATITUD"; 
+            rr:datatype xsd:decimal 
+        ] 
+    ];
+
+    rr:predicateObjectMap [ 
+        rr:predicate schema:longitude; 
+        rr:objectMap [ 
+            rml:reference "LONGITUD"; 
+            rr:datatype xsd:decimal 
+        ] 
+    ];
+
+    rr:predicateObjectMap [ 
+        rr:predicate schema:telephone; 
+        rr:objectMap [ 
+            rml:reference "TELEFONO"; 
+            rr:datatype xsd:string
+        ] 
+    ];
+
+    rr:predicateObjectMap [ 
+        rr:predicate mc:email; 
+        rr:objectMap [ 
+            rml:reference "EMAIL"; 
+            rr:datatype xsd:string 
+        ] 
+    ];
+
+    rr:predicateObjectMap [ 
+        rr:predicate mc:type; 
+        rr:objectMap [ 
+            rml:reference "TIPO"; 
+            rr:datatype xsd:string 
+        ] 
+    ].
+
+<#MuseumsMap> a rr:TriplesMap;
     rml:logicalSource [
-        rml:source "csv/clean/museums.csv" ;
+        rml:source "csv/museums-updated.csv";
         rml:referenceFormulation ql:CSV
-    ] ;
+    ];
     rr:subjectMap [
-        rr:template "https://w3id.org/madrid-culture/resource/museum/{id}" ;
-        rr:class mc:Museum ;
-        rr:termType rr:IRI
-    ] ;
-    rr:predicateObjectMap [ rr:predicate rdfs:label ; rr:objectMap [ rml:reference "name" ; rr:language "es" ] ] ;
-    rr:predicateObjectMap [ rr:predicate schema:name ; rr:objectMap [ rml:reference "name" ; rr:language "es" ] ] ;
-    rr:predicateObjectMap [ rr:predicate schema:description ; rr:objectMap [ rml:reference "description" ; rr:language "es" ] ] ;
-    rr:predicateObjectMap [ rr:predicate schema:openingHours ; rr:objectMap [ rml:reference "opening_hours" ; rr:datatype xsd:string ] ] ;
-    rr:predicateObjectMap [ rr:predicate mc:transport ; rr:objectMap [ rml:reference "transport" ; rr:datatype xsd:string ] ] ;
-    rr:predicateObjectMap [ rr:predicate schema:url ; rr:objectMap [ rml:reference "content_url" ; rr:termType rr:IRI ] ] ;
-    rr:predicateObjectMap [ rr:predicate mc:hasAddress ; rr:objectMap [ rr:template "https://w3id.org/madrid-culture/resource/address/{id}" ; rr:termType rr:IRI ] ] ;
-    rr:predicateObjectMap [ rr:predicate schema:latitude ; rr:objectMap [ rml:reference "latitude" ; rr:datatype xsd:decimal ] ] ;
-    rr:predicateObjectMap [ rr:predicate schema:longitude ; rr:objectMap [ rml:reference "longitude" ; rr:datatype xsd:decimal ] ] ;
-    rr:predicateObjectMap [ rr:predicate schema:telephone ; rr:objectMap [ rml:reference "telephone" ; rr:datatype xsd:string ] ] ;
-    rr:predicateObjectMap [ rr:predicate schema:faxNumber ; rr:objectMap [ rml:reference "fax" ; rr:datatype xsd:string ] ] ;
-    rr:predicateObjectMap [ rr:predicate mc:email ; rr:objectMap [ rml:reference "email" ; rr:datatype xsd:string ] ] ;
-    rr:predicateObjectMap [ rr:predicate mc:type ; rr:objectMap [ rml:reference "facility_type" ; rr:datatype xsd:string ] ] .
+        rr:template "http://w3id.org/madrid-culture/resource/museum/{PK}" ;
+        rr:class mc:Museum
+    ];
 
-<#LibraryAddressesMap>
-    a rr:TriplesMap ;
-    rml:logicalSource [ rml:source "csv/clean/libraries.csv" ; rml:referenceFormulation ql:CSV ] ;
-    rr:subjectMap [
-        rr:template "https://w3id.org/madrid-culture/resource/address/{id}" ;
-        rr:class mc:Address ;
-        rr:termType rr:IRI
-    ] ;
-    rr:predicateObjectMap [ rr:predicate rdfs:label ; rr:objectMap [ rml:reference "address_label" ; rr:language "es" ] ] ;
-    rr:predicateObjectMap [ rr:predicate mc:streetAddress ; rr:objectMap [ rml:reference "street_address" ; rr:datatype xsd:string ] ] ;
-    rr:predicateObjectMap [ rr:predicate mc:postalCode ; rr:objectMap [ rml:reference "postal_code" ; rr:datatype xsd:string ] ] ;
-    rr:predicateObjectMap [ rr:predicate mc:locatedInDistrict ; rr:objectMap [ rr:template "https://w3id.org/madrid-culture/resource/district/{district_code}" ; rr:termType rr:IRI ] ] ;
-    rr:predicateObjectMap [ rr:predicate mc:locatedInNeighborhood ; rr:objectMap [ rr:template "https://w3id.org/madrid-culture/resource/neighborhood/{district_code}-{neighborhood_code}" ; rr:termType rr:IRI ] ] .
+    rr:predicateObjectMap [ 
+        rr:predicate schema:name; 
+        rr:objectMap [ 
+            rml:reference "NOMBRE";
+            rr:datatype xsd:string 
+        ] 
+    ];
 
-<#MuseumAddressesMap>
-    a rr:TriplesMap ;
-    rml:logicalSource [ rml:source "csv/clean/museums.csv" ; rml:referenceFormulation ql:CSV ] ;
-    rr:subjectMap [
-        rr:template "https://w3id.org/madrid-culture/resource/address/{id}" ;
-        rr:class mc:Address ;
-        rr:termType rr:IRI
-    ] ;
-    rr:predicateObjectMap [ rr:predicate rdfs:label ; rr:objectMap [ rml:reference "address_label" ; rr:language "es" ] ] ;
-    rr:predicateObjectMap [ rr:predicate mc:streetAddress ; rr:objectMap [ rml:reference "street_address" ; rr:datatype xsd:string ] ] ;
-    rr:predicateObjectMap [ rr:predicate mc:postalCode ; rr:objectMap [ rml:reference "postal_code" ; rr:datatype xsd:string ] ] ;
-    rr:predicateObjectMap [ rr:predicate mc:locatedInDistrict ; rr:objectMap [ rr:template "https://w3id.org/madrid-culture/resource/district/{district_code}" ; rr:termType rr:IRI ] ] ;
-    rr:predicateObjectMap [ rr:predicate mc:locatedInNeighborhood ; rr:objectMap [ rr:template "https://w3id.org/madrid-culture/resource/neighborhood/{district_code}-{neighborhood_code}" ; rr:termType rr:IRI ] ] .
+    rr:predicateObjectMap [ 
+        rr:predicate schema:openingHours; 
+        rr:objectMap [ 
+            rml:reference "HORARIO"; 
+            rr:datatype xsd:string
+        ] 
+    ];
 
-<#DistrictsMap>
-    a rr:TriplesMap ;
-    rml:logicalSource [ rml:source "csv/clean/districts.csv" ; rml:referenceFormulation ql:CSV ] ;
-    rr:subjectMap [
-        rr:template "https://w3id.org/madrid-culture/resource/district/{district_code}" ;
-        rr:class mc:District ;
-        rr:termType rr:IRI
-    ] ;
-    rr:predicateObjectMap [ rr:predicate rdfs:label ; rr:objectMap [ rml:reference "district_name" ; rr:language "es" ] ] ;
-    rr:predicateObjectMap [ rr:predicate schema:name ; rr:objectMap [ rml:reference "district_name" ; rr:language "es" ] ] .
+    rr:predicateObjectMap [ 
+        rr:predicate mc:transport; 
+        rr:objectMap [ 
+            rml:reference "TRANSPORTE"; 
+            rr:datatype xsd:string
+        ] 
+    ];
 
-<#NeighborhoodsMap>
-    a rr:TriplesMap ;
-    rml:logicalSource [ rml:source "csv/clean/neighborhoods.csv" ; rml:referenceFormulation ql:CSV ] ;
+    rr:predicateObjectMap [ 
+        rr:predicate schema:url; 
+        rr:objectMap [ 
+            rml:reference "CONTENT-URL"; 
+            rr:termType rr:IRI 
+        ] 
+    ];
+
+    rr:predicateObjectMap [ 
+        rr:predicate mc:hasAccessibility; 
+        rr:objectMap [ 
+            rr:template "http://w3id.org/madrid-culture/resource/accessibility/{PK}"; 
+            rr:termType rr:IRI 
+        ] 
+    ];
+
+    rr:predicateObjectMap [ 
+        rr:predicate mc:hasAddress; 
+        rr:objectMap [ 
+            rr:template "http://w3id.org/madrid-culture/resource/address/{PK}"; 
+            rr:termType rr:IRI 
+        ] 
+    ];
+
+    rr:predicateObjectMap [ 
+        rr:predicate schema:latitude; 
+        rr:objectMap [ 
+            rml:reference "LATITUD"; 
+            rr:datatype xsd:decimal 
+        ] 
+    ];
+
+    rr:predicateObjectMap [ 
+        rr:predicate schema:longitude; 
+        rr:objectMap [ 
+            rml:reference "LONGITUD"; 
+            rr:datatype xsd:decimal 
+        ] 
+    ];
+
+    rr:predicateObjectMap [ 
+        rr:predicate schema:telephone; 
+        rr:objectMap [ 
+            rml:reference "TELEFONO"; 
+            rr:datatype xsd:string
+        ] 
+    ];
+
+    rr:predicateObjectMap [ 
+        rr:predicate mc:email; 
+        rr:objectMap [ 
+            rml:reference "EMAIL"; 
+            rr:datatype xsd:string 
+        ] 
+    ];
+
+    rr:predicateObjectMap [ 
+        rr:predicate mc:type; 
+        rr:objectMap [ 
+            rml:reference "TIPO"; 
+            rr:datatype xsd:string 
+        ] 
+    ].
+
+<#MuseumAccessibilityMap> a rr:TriplesMap;
+    rml:logicalSource [
+        rml:source "csv/museums-updated.csv";
+        rml:referenceFormulation ql:CSV
+    ];
+
     rr:subjectMap [
-        rr:template "https://w3id.org/madrid-culture/resource/neighborhood/{district_code}-{neighborhood_code}" ;
-        rr:class mc:Neighborhood ;
+        rr:template "http://w3id.org/madrid-culture/resource/accessibility/{PK}";
+        rr:class mc:Accessibility;
         rr:termType rr:IRI
-    ] ;
-    rr:predicateObjectMap [ rr:predicate rdfs:label ; rr:objectMap [ rml:reference "neighborhood_name" ; rr:language "es" ] ] ;
-    rr:predicateObjectMap [ rr:predicate schema:name ; rr:objectMap [ rml:reference "neighborhood_name" ; rr:language "es" ] ] .
+    ];
+
+    rr:predicateObjectMap [ 
+        rr:predicate mc:accesible; 
+        rr:objectMap [ 
+            rml:reference "ACCESIBLE";
+            rr:datatype xsd:boolean 
+        ] 
+    ];
+
+    rr:predicateObjectMap [ 
+        rr:predicate mc:partiallyAccessible; 
+        rr:objectMap [ 
+            rml:reference "PARCIALMENTE-ACCESIBLE";
+            rr:datatype xsd:boolean 
+        ] 
+    ];
+
+    rr:predicateObjectMap [ 
+        rr:predicate mc:noInfoAccessibility; 
+        rr:objectMap [ 
+            rml:reference "SIN-INFORMACION-ACCESIBILIDAD";
+            rr:datatype xsd:boolean 
+        ] 
+    ];
+
+    rr:predicateObjectMap [ 
+        rr:predicate mc:signLanguage; 
+        rr:objectMap [ 
+            rml:reference "LENGUA-SIGNO";
+            rr:datatype xsd:boolean 
+        ] 
+    ];
+
+    rr:predicateObjectMap [ 
+        rr:predicate mc:tactilePaving; 
+        rr:objectMap [ 
+            rml:reference "SEÑALIZACION-PODOTACTIL";
+            rr:datatype xsd:boolean 
+        ] 
+    ];
+
+    rr:predicateObjectMap [ 
+        rr:predicate mc:magneticInductionLoop; 
+        rr:objectMap [ 
+            rml:reference "BUCLE-INDUCCION-MAGNETICO";
+            rr:datatype xsd:boolean 
+        ] 
+    ].
+
+<#LibraryAccessibilityMap> a rr:TriplesMap;
+    rml:logicalSource [
+        rml:source "csv/libraries-updated.csv";
+        rml:referenceFormulation ql:CSV
+    ];
+
+    rr:subjectMap [
+        rr:template "http://w3id.org/madrid-culture/resource/accessibility/{PK}";
+        rr:class mc:Accessibility;
+        rr:termType rr:IRI
+    ];
+
+    rr:predicateObjectMap [ 
+        rr:predicate mc:accesible; 
+        rr:objectMap [ 
+            rml:reference "ACCESIBLE";
+            rr:datatype xsd:boolean 
+        ] 
+    ];
+
+    rr:predicateObjectMap [ 
+        rr:predicate mc:partiallyAccessible; 
+        rr:objectMap [ 
+            rml:reference "PARCIALMENTE-ACCESIBLE";
+            rr:datatype xsd:boolean 
+        ] 
+    ];
+
+    rr:predicateObjectMap [ 
+        rr:predicate mc:noInfoAccessibility; 
+        rr:objectMap [ 
+            rml:reference "SIN-INFORMACION-ACCESIBILIDAD";
+            rr:datatype xsd:boolean 
+        ] 
+    ];
+
+    rr:predicateObjectMap [ 
+        rr:predicate mc:signLanguage; 
+        rr:objectMap [ 
+            rml:reference "LENGUA-SIGNO";
+            rr:datatype xsd:boolean 
+        ] 
+    ];
+
+    rr:predicateObjectMap [ 
+        rr:predicate mc:tactilePaving; 
+        rr:objectMap [ 
+            rml:reference "SEÑALIZACION-PODOTACTIL";
+            rr:datatype xsd:boolean 
+        ] 
+    ];
+
+    rr:predicateObjectMap [ 
+        rr:predicate mc:magneticInductionLoop; 
+        rr:objectMap [ 
+            rml:reference "BUCLE-INDUCCION-MAGNETICO";
+            rr:datatype xsd:boolean 
+        ] 
+    ].
+
+<#LibraryAddressesMap> a rr:TriplesMap;
+    rml:logicalSource [ 
+        rml:source "csv/libraries-updated.csv"; 
+        rml:referenceFormulation ql:CSV 
+    ];
+
+    rr:subjectMap [
+        rr:template "http://w3id.org/madrid-culture/resource/address/{PK}";
+        rr:class mc:Address;
+        rr:termType rr:IRI
+    ];
+
+    rr:predicateObjectMap [ 
+        rr:predicate mc:streetAddress; 
+        rr:objectMap [ 
+            rml:reference "DIRECCION"; 
+            rr:datatype xsd:string 
+        ] 
+    ];
+
+    rr:predicateObjectMap [ 
+        rr:predicate mc:postalCode; 
+        rr:objectMap [ 
+            rml:reference "CODIGO-POSTAL"; 
+            rr:datatype xsd:string 
+        ] 
+    ];
+
+    rr:predicateObjectMap [ 
+        rr:predicate mc:locatedInDistrict; 
+        rr:objectMap [ 
+            rr:template "http://w3id.org/madrid-culture/resource/district/{COD-DISTRITO}"; 
+            rr:termType rr:IRI 
+        ] 
+    ];
+
+    rr:predicateObjectMap [ 
+        rr:predicate mc:locatedInNeighborhood; 
+        rr:objectMap [ 
+            rr:template "http://w3id.org/madrid-culture/resource/neighborhood/{COD-DISTRITO}-{COD-BARRIO}"; 
+            rr:termType rr:IRI 
+        ] 
+    ].
+
+<#MuseumAddressesMap> a rr:TriplesMap ;
+    rml:logicalSource [ 
+        rml:source "csv/museums-updated.csv"; 
+        rml:referenceFormulation ql:CSV 
+    ];
+
+    rr:subjectMap [
+        rr:template "http://w3id.org/madrid-culture/resource/address/{PK}" ;
+        rr:class mc:Address;
+        rr:termType rr:IRI
+    ];
+
+    rr:predicateObjectMap [ 
+        rr:predicate mc:streetAddress; 
+        rr:objectMap [ 
+            rml:reference "DIRECCION"; 
+            rr:datatype xsd:string 
+        ] 
+    ];
+
+    rr:predicateObjectMap [ 
+        rr:predicate mc:postalCode; 
+        rr:objectMap [ 
+            rml:reference "CODIGO-POSTAL"; 
+            rr:datatype xsd:string 
+        ] 
+    ];
+
+    rr:predicateObjectMap [ 
+        rr:predicate mc:locatedInDistrict; 
+        rr:objectMap [ 
+            rr:template "http://w3id.org/madrid-culture/resource/district/{COD-DISTRITO}"; 
+            rr:termType rr:IRI 
+        ] 
+    ];
+
+    rr:predicateObjectMap [ 
+        rr:predicate mc:locatedInNeighborhood; 
+        rr:objectMap [ 
+            rr:template "http://w3id.org/madrid-culture/resource/neighborhood/{COD-DISTRITO}-{COD-BARRIO}"; 
+            rr:termType rr:IRI 
+        ] 
+    ].
+
+<#DistrictsLibrariesMap> a rr:TriplesMap;
+    rml:logicalSource [ 
+        rml:source "csv/libraries-updated.csv"; 
+        rml:referenceFormulation ql:CSV 
+    ];
+
+    rr:subjectMap [
+        rr:template "http://w3id.org/madrid-culture/resource/district/{COD-DISTRITO}";
+        rr:class mc:District;
+        rr:termType rr:IRI
+    ];
+
+    rr:predicateObjectMap [ 
+        rr:predicate schema:name; 
+        rr:objectMap [ 
+            rml:reference "DISTRITO"; 
+            rr:datatype xsd:string 
+        ] 
+    ].
+
+<#DistrictsMuseumsMap> a rr:TriplesMap;
+    rml:logicalSource [ 
+        rml:source "csv/museums-updated.csv"; 
+        rml:referenceFormulation ql:CSV 
+    ];
+
+    rr:subjectMap [
+        rr:template "http://w3id.org/madrid-culture/resource/district/{COD-DISTRITO}";
+        rr:class mc:District;
+        rr:termType rr:IRI
+    ];
+
+    rr:predicateObjectMap [ 
+        rr:predicate schema:name; 
+        rr:objectMap [ 
+            rml:reference "DISTRITO"; 
+            rr:datatype xsd:string 
+        ] 
+    ].
+
+<#NeighborhoodsLibrariesMap> a rr:TriplesMap;
+    rml:logicalSource [ 
+        rml:source "csv/libraries-updated.csv"; 
+        rml:referenceFormulation ql:CSV 
+    ];
+
+    rr:subjectMap [
+        rr:template "http://w3id.org/madrid-culture/resource/neighborhood/{COD-DISTRITO}-{COD-BARRIO}";
+        rr:class mc:Neighborhood;
+        rr:termType rr:IRI
+    ];
+
+    rr:predicateObjectMap [ 
+        rr:predicate schema:name; 
+        rr:objectMap [ 
+            rml:reference "BARRIO"; 
+            rr:datatype xsd:string 
+        ] 
+    ].
+
+<#NeighborhoodsMuseumsMap> a rr:TriplesMap;
+    rml:logicalSource [ 
+        rml:source "csv/museums-updated.csv"; 
+        rml:referenceFormulation ql:CSV 
+    ];
+
+    rr:subjectMap [
+        rr:template "http://w3id.org/madrid-culture/resource/neighborhood/{COD-DISTRITO}-{COD-BARRIO}";
+        rr:class mc:Neighborhood;
+        rr:termType rr:IRI
+    ];
+
+    rr:predicateObjectMap [ 
+        rr:predicate schema:name; 
+        rr:objectMap [ 
+            rml:reference "BARRIO"; 
+            rr:datatype xsd:string 
+        ] 
+    ].

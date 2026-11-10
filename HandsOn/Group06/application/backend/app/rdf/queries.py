@@ -71,6 +71,7 @@ FACILITIES_QUERY = """
         ?district_name
         ?neighborhood
         ?neighborhood_name
+        ?accessible
         ?partially_accessible
         ?no_info_accessibility
         ?sign_language

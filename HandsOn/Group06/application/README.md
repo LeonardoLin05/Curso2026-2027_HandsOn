@@ -45,7 +45,7 @@ Antes de comenzar, es necesario tener instalado:
 
 ## Instalación y ejecución
 
-### 2. Configurar el backend
+### 1. Configurar el backend
 
 Acceder a la carpeta del backend:
 
@@ -89,7 +89,7 @@ El backend estará disponible en:
 - Documentación Swagger: http://localhost:8000/docs
 - Documentación ReDoc: http://localhost:8000/redoc
 
-### 3. Configurar el frontend
+### 2. Configurar el frontend
 
 Abrir otra terminal y acceder a la carpeta del frontend:
 

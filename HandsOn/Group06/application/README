@@ -3,7 +3,7 @@
 Aplicación web desarrollada como parte del proyecto de **Web Semántica**, utilizando tecnologías modernas para el desarrollo del frontend y backend.
 
 ## Estructura
-
+```
 application/
 ├── backend/
 │   ├── app/
@@ -34,6 +34,7 @@ application/
 │
 ├── .gitignore
 └── README.md
+```
 
 ## Requisitos previos
 
@@ -67,7 +68,7 @@ source .venv/bin/activate
 
 **Windows:**
 ```bash
-.venv/Script/activate
+.venv/Scripts/activate
 ```
 
 Instalar las dependencias:
@@ -136,7 +137,3 @@ El frontend se organiza en los siguientes módulos:
 - `context/`: gestión del estado global.
 - `utils/`: funciones auxiliares.
 - `styles/`: hojas de estilos.
-
-## Desarrollo
-
-Para trabajar en el proyecto es necesario ejecutar ambos servidores de forma independiente.
